@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    android:orientation="horizontal"
+    android:baselineAligned="false"
+    tools:context="com.codenamegradient.gpsscanner.MainActivity">
+
+    <!-- map view -->
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="3"
+        tools:context="com.codenamegradient.gpsscanner.MainActivity" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_margin="8dp">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/latitude"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Latitude: "
+                        android:textColor="@color/colorTextNormal"
+                        android:layout_marginBottom="4dp" />
+
+                    <TextView
+                        android:id="@+id/latitudeDMS"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textColor="@color/colorTextNormal"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginLeft="16dp"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/longitude"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Longitude: "
+                        android:textColor="@color/colorTextNormal"
+                        android:layout_marginBottom="4dp" />
+
+                    <TextView
+                        android:id="@+id/longitudeDMS"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textColor="@color/colorTextNormal"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginLeft="16dp"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/accuracy"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Accuracy: "
+                        android:textColor="@color/colorTextNormal"
+                        android:layout_marginBottom="4dp"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/accuracyFeet"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Feet: "
+                        android:textColor="@color/colorTextNormal"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginLeft="16dp"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/bearing"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Bearing: "
+                        android:textColor="@color/colorTextNormal"
+                        android:layout_marginBottom="4dp" />
+
+                    <TextView
+                        android:id="@+id/altitude"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Altitude: "
+                        android:textColor="@color/colorTextNormal"
+                        android:layout_marginBottom="4dp"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/altitudeFeet"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Feet: "
+                        android:textColor="@color/colorTextNormal"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginLeft="16dp"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/speed"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Speed: "
+                        android:textColor="@color/colorTextNormal"
+                        android:layout_marginBottom="4dp" />
+
+                    <TextView
+                        android:id="@+id/speedKilometers"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="km/h: "
+                        android:textColor="@color/colorTextNormal"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginLeft="16dp" />
+
+                    <TextView
+                        android:id="@+id/speedMiles"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="MPH: "
+                        android:textColor="@color/colorTextNormal"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginLeft="16dp" />
+
+                    <TextView
+                        android:id="@+id/speedKnots"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Knots: "
+                        android:textColor="@color/colorTextNormal"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginLeft="16dp" />
+
+                    <TextView
+                        android:id="@+id/time"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Time: "
+                        android:textColor="@color/colorTextNormal"
+                        android:layout_marginBottom="4dp"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/timeHuman"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Time: "
+                        android:textColor="@color/colorTextNormal"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginLeft="16dp"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/provider"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Provider: "
+                        android:textColor="@color/colorTextNormal"
+                        android:layout_marginBottom="4dp"
+                        android:visibility="gone" />
+
+                </LinearLayout>
+
+            </ScrollView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <Button
+                android:id="@+id/cycleMapType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="mapTypePicker"
+                android:text="Map: Normal"
+                android:background="#CCCCCC"
+                android:layout_marginBottom="1dp" />
+
+            <Button
+                android:id="@+id/mapZoom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="mapZoomPicker"
+                android:text="Zoom: 16"
+                android:background="#CCCCCC"
+                android:layout_marginBottom="1dp" />
+
+            <Button
+                android:id="@+id/mapTilt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="mapTiltPicker"
+                android:text="Tilt: 45"
+                android:background="#CCCCCC"
+                android:layout_marginBottom="1dp" />
+
+            <!-- pause button -->
+            <Button
+                android:id="@+id/pauseResume"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorButtonActive"
+                android:onClick="togglePause"
+                android:text="Pause" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
