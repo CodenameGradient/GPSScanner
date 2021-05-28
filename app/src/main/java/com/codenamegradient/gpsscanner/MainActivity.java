@@ -29,6 +29,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.sql.Time;
+import java.text.DecimalFormat;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
     /**
@@ -208,37 +209,42 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
      * @param location a standard location object
      */
     private void updateStrings(Location location) {
+        DecimalFormat ultraPrecision = new DecimalFormat("###.#####");
+        DecimalFormat highPrecision = new DecimalFormat("###.###");
+        DecimalFormat standardPrecision = new DecimalFormat("###.##");
+
+
         // latitude
         TextView latitude = findViewById(R.id.latitude);
         TextView latitudeDMS = findViewById(R.id.latitudeDMS);
         double latitudeRaw = location.getLatitude();
-        latitude.setText("Latitude: " + latitudeRaw);
+        latitude.setText("Latitude: " + ultraPrecision.format(latitudeRaw));
         latitudeDMS.setText(decimalToDMS(latitudeRaw));
 
         // longitude
         TextView longitude = findViewById(R.id.longitude);
         TextView longitudeDMS = findViewById(R.id.longitudeDMS);
         double longitudeRaw = location.getLongitude();
-        longitude.setText("Longitude: " + longitudeRaw);
+        longitude.setText("Longitude: " + ultraPrecision.format(longitudeRaw));
         longitudeDMS.setText(decimalToDMS(longitudeRaw));
 
         // accuracy
         TextView accuracy = findViewById(R.id.accuracy);
         TextView accuracyFeet = findViewById(R.id.accuracyFeet);
         float accuracyRaw = location.getAccuracy();
-        accuracy.setText("Accuracy: " + accuracyRaw + " meters");
-        accuracyFeet.setText("Feet: " + accuracyRaw * 3.28084);
+        accuracy.setText("Accuracy: " + highPrecision.format(accuracyRaw) + " meters");
+        accuracyFeet.setText("Feet: " + highPrecision.format(accuracyRaw * 3.28084));
 
         // bearing
         TextView bearing = findViewById(R.id.bearing);
-        bearing.setText("Bearing: " + location.getBearing() + "\u00b0");
+        bearing.setText("Bearing: " + highPrecision.format(location.getBearing()) + "\u00b0");
 
         // altitude
         TextView altitude = findViewById(R.id.altitude);
         TextView altitudeFeet = findViewById(R.id.altitudeFeet);
         double altitudeRaw = location.getAltitude();
-        altitude.setText("Altitude: " + altitudeRaw + " meters");
-        altitudeFeet.setText("Feet: " + altitudeRaw * 3.28084);
+        altitude.setText("Altitude: " + standardPrecision.format(altitudeRaw) + " meters");
+        altitudeFeet.setText("Feet: " + standardPrecision.format(altitudeRaw * 3.28084));
 
         // speed
         TextView speed = findViewById(R.id.speed);
@@ -246,10 +252,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         TextView speedMiles = findViewById(R.id.speedMiles);
         TextView speedKnots = findViewById(R.id.speedKnots);
         float speedRaw = location.getSpeed();
-        speed.setText("Speed: " + speedRaw + " m/s");
-        speedKilometers.setText("km/h: " + speedRaw * 3.6);
-        speedMiles.setText("MPH: " + speedRaw * 2.23694);
-        speedKnots.setText("Knots: " + speedRaw * 1.94384);
+        speed.setText("Speed: " + standardPrecision.format(speedRaw) + " m/s");
+        speedKilometers.setText("km/h: " + standardPrecision.format(speedRaw * 3.6));
+        speedMiles.setText("MPH: " + standardPrecision.format(speedRaw * 2.23694));
+        speedKnots.setText("Knots: " + standardPrecision.format(speedRaw * 1.94384));
 
         // time
         TextView time = findViewById(R.id.time);
