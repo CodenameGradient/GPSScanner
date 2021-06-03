@@ -35,3 +35,6 @@ local.properties
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+build/android-profile/
+build/intermediates/lint-cache/
