@@ -3,7 +3,6 @@ package com.codenamegradient.gpsscanner;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.content.res.Configuration;
 import android.location.Location;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -41,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private final int PERMISSION_LOCATION = 0;
     private GoogleMap mMap;
     private int mapZoom = 16;
-    private int mapTilt = 45;
+    private int mapTilt = 0;
     private final int mapAnimateSpeed = 250;
 
     /**
@@ -87,7 +86,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         pause = false;
         button.setBackgroundColor(getResources().getColor(R.color.colorButtonActive));
-        button.setText("Pause");
+        button.setText(getString(R.string.pause));
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions();
@@ -106,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             });
 
             // create the location request that will get updates
-            LocationRequest mLocationRequest = new LocationRequest();
+            LocationRequest mLocationRequest = LocationRequest.create();
             mLocationRequest.setInterval(1000);
             mLocationRequest.setFastestInterval(1000);
             mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
@@ -164,7 +163,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         pause = true;
         button.setBackgroundColor(getResources().getColor(R.color.colorButtonPaused));
-        button.setText("Resume");
+        button.setText(getString(R.string.resume));
 
         if (mFusedLocationClient != null) {
             mFusedLocationClient.removeLocationUpdates(mLocationCallback);
@@ -182,7 +181,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             pause = true;
         }
         button.setBackgroundColor(getResources().getColor(R.color.colorButtonPaused));
-        button.setText("Resume");
+        button.setText(getString(R.string.resume));
 
         if (mFusedLocationClient != null) {
             mFusedLocationClient.removeLocationUpdates(mLocationCallback);
@@ -193,6 +192,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
      * Converts a decimal latitude or longitude into degree/minute/second format
      * @param dd (decimal degrees)
      * @return string degree, minute, seconds format
+     * Note: this isn't currently being used. I'm not sure if I'll ever really implement this.
      */
     private String decimalToDMS(double dd) {
         // todo: ensure this is actually accurate, accounts for directions etc.
@@ -211,40 +211,31 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private void updateStrings(Location location) {
         DecimalFormat ultraPrecision = new DecimalFormat("###.#####");
         DecimalFormat highPrecision = new DecimalFormat("###.###");
-        DecimalFormat standardPrecision = new DecimalFormat("###.##");
-
+        DecimalFormat standardPrecision = new DecimalFormat("###.#");
 
         // latitude
         TextView latitude = findViewById(R.id.latitude);
-        TextView latitudeDMS = findViewById(R.id.latitudeDMS);
         double latitudeRaw = location.getLatitude();
-        latitude.setText("Latitude: " + ultraPrecision.format(latitudeRaw));
-        latitudeDMS.setText(decimalToDMS(latitudeRaw));
+        latitude.setText(getString(R.string.latitude, ultraPrecision.format(latitudeRaw)));
 
         // longitude
         TextView longitude = findViewById(R.id.longitude);
-        TextView longitudeDMS = findViewById(R.id.longitudeDMS);
         double longitudeRaw = location.getLongitude();
-        longitude.setText("Longitude: " + ultraPrecision.format(longitudeRaw));
-        longitudeDMS.setText(decimalToDMS(longitudeRaw));
+        longitude.setText(getString(R.string.longitude, ultraPrecision.format(longitudeRaw)));
 
         // accuracy
         TextView accuracy = findViewById(R.id.accuracy);
-        TextView accuracyFeet = findViewById(R.id.accuracyFeet);
         float accuracyRaw = location.getAccuracy();
-        accuracy.setText("Accuracy: " + highPrecision.format(accuracyRaw) + " meters");
-        accuracyFeet.setText("Feet: " + highPrecision.format(accuracyRaw * 3.28084));
+        accuracy.setText(getString(R.string.accuracy, standardPrecision.format(accuracyRaw), standardPrecision.format(accuracyRaw * 3.28084)));
 
         // bearing
         TextView bearing = findViewById(R.id.bearing);
-        bearing.setText("Bearing: " + highPrecision.format(location.getBearing()) + "\u00b0");
+        bearing.setText(getString(R.string.bearing, standardPrecision.format(location.getBearing())));
 
         // altitude
         TextView altitude = findViewById(R.id.altitude);
-        TextView altitudeFeet = findViewById(R.id.altitudeFeet);
         double altitudeRaw = location.getAltitude();
-        altitude.setText("Altitude: " + standardPrecision.format(altitudeRaw) + " meters");
-        altitudeFeet.setText("Feet: " + standardPrecision.format(altitudeRaw * 3.28084));
+        altitude.setText(getString(R.string.altitude, standardPrecision.format(altitudeRaw), standardPrecision.format(altitudeRaw * 3.28084)));
 
         // speed
         TextView speed = findViewById(R.id.speed);
@@ -252,22 +243,22 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         TextView speedMiles = findViewById(R.id.speedMiles);
         TextView speedKnots = findViewById(R.id.speedKnots);
         float speedRaw = location.getSpeed();
-        speed.setText("Speed: " + standardPrecision.format(speedRaw) + " m/s");
-        speedKilometers.setText("km/h: " + standardPrecision.format(speedRaw * 3.6));
-        speedMiles.setText("MPH: " + standardPrecision.format(speedRaw * 2.23694));
-        speedKnots.setText("Knots: " + standardPrecision.format(speedRaw * 1.94384));
+        speed.setText(getString(R.string.speed, standardPrecision.format(speedRaw)));
+        speedKilometers.setText(getString(R.string.speed_kmh, standardPrecision.format(speedRaw * 3.6)));
+        speedMiles.setText(getString(R.string.speed_mph, standardPrecision.format(speedRaw * 2.23694)));
+        speedKnots.setText(getString(R.string.speed_knots, standardPrecision.format(speedRaw * 1.94384)));
 
         // time
         TextView time = findViewById(R.id.time);
         TextView timeHuman = findViewById(R.id.timeHuman);
         long timeRaw = location.getTime();
         Time timeObj = new Time(timeRaw);
-        time.setText("Time: " + timeRaw);
-        timeHuman.setText("" + timeObj.toString());
+        time.setText(getString(R.string.time, timeRaw));
+        timeHuman.setText(getString(R.string.time_human, timeObj.toString()));
 
         // provider
         TextView provider = findViewById(R.id.provider);
-        provider.setText("Provider: " + location.getProvider());
+        provider.setText(getString(R.string.provider, location.getProvider()));
     }
 
     private void addMarker() {
@@ -315,21 +306,19 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
      * @param grantResults grant results
      */
     @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        // we don't really NEED a switch here, but if for some reason we add other permissions it'll be easy to add them in the future
-        switch (requestCode) {
-            case PERMISSION_LOCATION:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    startLocationUpdates();
-                } else {
-                    // user has denied location access, make some toast
-                    Context context = getApplicationContext();
-                    CharSequence text = "Location access required!";
-                    int duration = Toast.LENGTH_LONG;
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == PERMISSION_LOCATION) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                startLocationUpdates();
+            } else {
+                // user has denied location access, make some toast
+                Context context = getApplicationContext();
+                CharSequence text = "Location access required!";
+                int duration = Toast.LENGTH_LONG;
 
-                    Toast toast = Toast.makeText(context, text, duration);
-                    toast.show();
-                }
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+            }
         }
     }
 
@@ -376,13 +365,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         if (mapType == GoogleMap.MAP_TYPE_NORMAL) {
             mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-            button.setText("Map: Hybrid");
+            button.setText(R.string.map_hybrid);
         } else if (mapType == GoogleMap.MAP_TYPE_HYBRID) {
             mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
-            button.setText("Map: Terrain");
+            button.setText(R.string.map_terrain);
         } else {
             mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-            button.setText("Map: Normal");
+            button.setText(R.string.map_normal);
         }
     }
 
@@ -406,7 +395,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             mapZoom = 5;
         }
 
-        button.setText("Zoom: " + mapZoom);
+        button.setText(getString(R.string.zoom, mapZoom));
 
         updateMapCamera();
     }
@@ -429,7 +418,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             mapTilt = 0;
         }
 
-        button.setText("Tilt: " + mapTilt);
+        button.setText(getString(R.string.tilt, mapTilt));
 
         updateMapCamera();
     }

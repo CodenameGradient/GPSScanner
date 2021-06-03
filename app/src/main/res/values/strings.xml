@@ -1,3 +1,39 @@
 <resources>
     <string name="app_name">GPS Scanner</string>
+
+    <string name="pause">Pause</string>
+    <string name="resume">Resume</string>
+
+    <string name="latitude">Latitude: %1$s</string>
+    <string name="latitude_default">Latitude:</string>
+    <string name="longitude">Longitude: %1$s</string>
+    <string name="longitude_default">Longitude:</string>
+    <string name="accuracy">Accuracy: %1$s m / %2$s ft</string>
+    <string name="accuracy_default">Accuracy:</string>
+    <string name="bearing">Bearing: %1$s°</string>
+    <string name="bearing_default">Bearing:</string>
+    <string name="altitude">Altitude: %1$s m / %2$s ft</string>
+    <string name="altitude_default">Altitude:</string>
+    <string name="speed">Speed: %1$s m/s</string>
+    <string name="speed_default">Speed:</string>
+    <string name="speed_kmh">km/h: %1$s</string>
+    <string name="speed_kmh_default">km/h:</string>
+    <string name="speed_mph">MPH: %1$s</string>
+    <string name="speed_mph_default">MPH:</string>
+    <string name="speed_knots">Knots: %1$s</string>
+    <string name="speed_knots_default">Knots:</string>
+    <string name="time">Time: %1$d</string>
+    <string name="time_default">Time:</string>
+    <string name="time_human">%1$s</string>
+    <string name="time_human_default"></string>
+    <string name="provider">Provider: %1$s</string>
+    <string name="provider_default">Provider:</string>
+
+    <string name="map_normal">Map:Normal</string>
+    <string name="map_terrain">Map:Terrain</string>
+    <string name="map_hybrid">Map:Hybrid</string>
+    <string name="zoom">Zoom:%1$d</string>
+    <string name="zoom_default">Zoom:16</string>
+    <string name="tilt">Tilt:%1$d</string>
+    <string name="tilt_default">Tilt:0</string>
 </resources>
